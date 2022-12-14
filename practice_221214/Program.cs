@@ -11,9 +11,9 @@ namespace practice_221214
             int[] nums3 = { 1 };
 
             var find = new Solution();
-            Console.WriteLine(find.SingleNumber(nums1));
-            Console.WriteLine(find.SingleNumber(nums2));
-            Console.WriteLine(find.SingleNumber(nums3));
+            find.SingleNumber(nums1);
+            find.SingleNumber(nums2);
+            find.SingleNumber(nums3);
         }
     }
     // 給定一個非空的整數陣列nums，裡面每一個元素都出現兩次，除了一個single one。請回傳該值。
@@ -32,12 +32,22 @@ namespace practice_221214
     {
         public int SingleNumber(int[] nums)
         {
-            int ans = nums[0];
-            for (int i = 1; i < nums.Length; i++)
+            int i, j, len, count = 0;
+            len = nums.GetUpperBound(0);
+            for (i = 0; i <= len; i++)
             {
-                ans ^= nums[i];
+                for (j = 0; j <= len; j++)
+                {
+                    if (nums[i] == nums[j])
+                    {
+                        count++;
+                    }
+                }
+                if (count != 2)
+                {
+                    return nums[i];
+                }
             }
-            return ans;
         }
     }
 }
