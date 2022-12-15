@@ -32,7 +32,9 @@ namespace practice_221214
                     dic[nums[i]]++;
             }
 
-            #region Solution1
+
+            #region 末段Solution1
+
             foreach (var item in dic)
             {
                 if (item.Value == 1)
@@ -43,7 +45,7 @@ namespace practice_221214
             #endregion
 
 
-            #region Solution2
+            #region 末段Solution2
 
             var singleNum = dic.Where(d => d.Value == 1)
                    .Select(d => d.Key)
