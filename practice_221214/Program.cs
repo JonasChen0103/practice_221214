@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace practice_221214
 {
@@ -16,38 +18,38 @@ namespace practice_221214
             find.SingleNumber(nums3);
         }
     }
-    // 給定一個非空的整數陣列nums，裡面每一個元素都出現兩次，除了一個single one。請回傳該值。
-    //Example 1:
-    //Input: nums = [2,2,1]
-    //Output: 1
 
-    //Example 2:
-    //Input: nums = [4,1,2,1,2]
-    //Output: 4
-
-    //Example 3:
-    //Input: nums = [1]
-    //Output: 1
     public class Solution
     {
         public int SingleNumber(int[] nums)
         {
-            int i, j, len, count = 0;
-            len = nums.GetUpperBound(0);
-            for (i = 0; i <= len; i++)
+            var dic = new Dictionary<int, byte>();
+            for (int i = 0; i < nums.Length; i++)
             {
-                for (j = 0; j <= len; j++)
-                {
-                    if (nums[i] == nums[j])
-                    {
-                        count++;
-                    }
-                }
-                if (count != 2)
-                {
-                    return nums[i];
-                }
+                if (!dic.ContainsKey(nums[i]))
+                    dic.Add(nums[i], 1);
+                else
+                    dic[nums[i]]++;
             }
+
+            #region Solution1
+            foreach (var item in dic)
+            {
+                if (item.Value == 1)
+                    return item.Key;
+            }                           
+
+            throw new ArgumentException();
+            #endregion
+
+
+            #region Solution2
+
+            var singleNum = dic.Where(d => d.Value == 1)
+                   .Select(d => d.Key)
+                   .First();
+            return singleNum;
+            #endregion
         }
     }
 }
